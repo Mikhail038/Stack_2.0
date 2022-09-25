@@ -41,7 +41,7 @@
         {                                             \
             if (!(Condition))                         \
             {                                         \
-                stack->err += ReturnNum;              \
+                stack->err->num += ReturnNum;              \
             }                                         \
         } while (0)
 
@@ -60,28 +60,17 @@ typedef struct
     int   line;
 } StructInfo;
 
-typedef struct
-{
-    char* file = NULL;
-    char* func = NULL;
-    int   line;
-} StructSource;
+// typedef struct
+// {
+//     char* file = NULL;
+//     char* func = NULL;
+//     int   line;
+// } StructSource;
 
 typedef struct
 {
     int num;
-    const char** name =
-    {
-    "error",
-    "Capacity < 0",
-    "stack null ptr",
-    "size > capacity",
-    "birds are dead",
-    "birth file null",
-    "birth func null",
-    "source file null",
-    "source func null"
-    };
+    char**  name;
 } StructErr;
 
 typedef struct
@@ -91,9 +80,9 @@ typedef struct
     StackDataType*  data            = NULL;
     char*           canary          = NULL;
     int             canary_size     = 0;
-    int             err             = 0;
-    StructInfo      birth           = {};
-    StructInfo      source          = {};
+    StructErr*       err             = 0;
+    StructInfo*      birth           = 0;
+    StructInfo*      source          = 0;
 } StructStack;
 
 

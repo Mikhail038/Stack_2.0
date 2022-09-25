@@ -13,7 +13,7 @@ int main ()
         stack_destructor (&stack);
         return 1;
     }
-    INIT (&(stack.birth));
+    INIT (stack.birth);
 
     //show_canary (stack);
 
