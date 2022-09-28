@@ -39,7 +39,6 @@
 
 #endif
 
-
 #define MCP(Message)                                                                                       \
         do                                                                                                 \
         {                                                                                                  \
@@ -47,7 +46,6 @@
             " //IN FUNCTION//%s//IN LINE//%d//IN FILE//%s//\n",                                             \
              __PRETTY_FUNCTION__, __LINE__, __FILE__);                                                     \
         } while (0)
-
 
 #define MCA(Condition, ReturnNum)                     \
         do                                            \
@@ -173,6 +171,8 @@ static int print_head (StructStack* stack, FILE* stream);
 static int print_error (const char* ErrorName, StructInfo* info, FILE* Stream);
 
 static int print_stack_data_double (StructStack* stack);
+
+void move_canary (StructStack* stack, int OldCapasity);
 
 /*!
     @brief Function that initializes stack
