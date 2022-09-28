@@ -22,13 +22,13 @@
 #define BGN                                                                \
         do                                                                 \
         {                                                                  \
-            fprintf (stderr, "I am alive! %-80s|\n", __PRETTY_FUNCTION__); \
+            fprintf (stderr, /*"I am alive!"*/"%-92s|\n", __PRETTY_FUNCTION__); \
         } while (0)
 
 #define END                                                                 \
         do                                                                  \
         {                                                                   \
-            fprintf (stderr, "I am dead!  %-80s^ \n", __PRETTY_FUNCTION__); \
+            fprintf (stderr, /*"I am dead! "*/"%-92s^ \n", __PRETTY_FUNCTION__); \
         } while (0)
 
 
@@ -156,7 +156,7 @@ void copy_byte_by_byte (void* FirstData, void* SecondData, int Size);
 
 static int create_canary (StructStack* stack, int Size);
 
-static int canaries_alive (StructStack* stack);
+int canaries_in_stack_alive (StructStack* stack);
 
 static int make_stack_bigger (StructStack* stack);
 
