@@ -15,7 +15,30 @@
 // 256 - source func null
 //---------------------------------------------------------------------------------------
 
+#define LOCATION __FILE__,__PRETTY_FUNCTION__,__LINE__
+
 #define DOTXT(Message) #Message
+
+#define BGN                                                                \
+        do                                                                 \
+        {                                                                  \
+            fprintf (stderr, "I am alive! %-80s|\n", __PRETTY_FUNCTION__); \
+        } while (0)
+
+#define END                                                                 \
+        do                                                                  \
+        {                                                                   \
+            fprintf (stderr, "I am dead!  %-80s^ \n", __PRETTY_FUNCTION__); \
+        } while (0)
+
+
+#ifndef PURPLE
+
+#define BGN
+#define END
+
+#endif
+
 
 #define MCP(Message)                                                                                       \
         do                                                                                                 \
@@ -41,14 +64,14 @@
         {                                             \
             if (!(Condition))                         \
             {                                         \
-                stack->err->num += ReturnNum;              \
+                stack->err += ReturnNum;              \
             }                                         \
         } while (0)
 
 #define INIT(Var)                                                             \
         do                                                                    \
         {                                                                     \
-            initialize_info (Var, __FILE__, __LINE__, __PRETTY_FUNCTION__);   \
+            initialize_info (Var, LOCATION);                                  \
         } while (0)
 
 typedef double  StackDataType;
@@ -60,31 +83,66 @@ typedef struct
     int   line;
 } StructInfo;
 
+#ifdef GREEN
+
 // typedef struct
 // {
-//     char* file = NULL;
-//     char* func = NULL;
-//     int   line;
-// } StructSource;
+//     int             size            = 0;
+//     int             capacity        = 0;
+//     StackDataType*  data            = NULL;
+//     int             err             = 0;
+//     char*           canary          = NULL;
+//     int             canary_size     = 0;
+//     StructInfo*     birth           = NULL;
+//     StructInfo*     source          = NULL;
+// } StructStack;
+
+#endif
+
+// #ifndef GREEN
 
 typedef struct
 {
-    int num;
-    char**  name;
-} StructErr;
-
-typedef struct
-{
+    double          front_canary    = NULL;
+    unsigned int    hash            = 0;
     int             size            = 0;
     int             capacity        = 0;
     StackDataType*  data            = NULL;
-    char*           canary          = NULL;
+    double          canary          = 0;
     int             canary_size     = 0;
-    StructErr*       err             = 0;
-    StructInfo*      birth           = 0;
-    StructInfo*      source          = 0;
+    int             err             = 0;
+    StructInfo*     birth           = NULL;
+    StructInfo*     source          = NULL;
+    double          end_canary      = NULL;
 } StructStack;
 
+// #endif
+
+#ifdef GREEN
+    static const int PROTECTION_LEVEL = 0;
+#endif
+
+#ifdef YELLOW
+    static const int PROTECTION_LEVEL = 1;
+#endif
+
+#ifdef ORANGE
+    static const int PROTECTION_LEVEL = 2;
+#endif
+
+#ifdef RED
+    static const int PROTECTION_LEVEL = 3;
+#endif
+
+#ifdef PURPLE
+    static const int PROTECTION_LEVEL = 4;
+#endif
+
+//unsigned int hash_h31 (const void* array, int size);
+
+//unsigned int djb33_hash(const char* s, int len);
+
+unsigned int HashFAQ6 (const char * str);
 
 bool stack_is_full (StructStack* stack);
 
@@ -94,7 +152,7 @@ void swap_byte_by_byte (void* FirstData, void* SecondData, int Size);
 
 int compare_byte_by_byte (void* FirstData, void* SecondData, int Size);
 
-void copy_byte_by_byte (void* FirstData, void* SecondData, int Size);
+void copy_byte_by_byte (void* FirstData, void* SecondData, int Size);   
 
 static int create_canary (StructStack* stack, int Size);
 
@@ -108,12 +166,13 @@ static int stack_variator (StructStack* stack);
 
 int stack_dump (StructStack* stack);
 
-int initialize_info (StructInfo* info, const char* File, int Line, const char* Function);
+int initialize_info (StructInfo* info, const char* File, const char* Function, int Line);
 
 static int print_head (StructStack* stack, FILE* stream);
 
-static int print_error (StructStack* stack, int ErrorNumber, FILE* Stream);
+static int print_error (const char* ErrorName, StructInfo* info, FILE* Stream);
 
+static int print_stack_data_double (StructStack* stack);
 
 /*!
     @brief Function that initializes stack
