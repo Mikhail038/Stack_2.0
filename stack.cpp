@@ -15,8 +15,6 @@ int main ()
     }
     INIT (stack.birth);
 
-    //show_canary (stack);
-
     double a = 1 + 256*2 + 256*256*3;
     printf ("--%lg--\n", a);
     push_in_stack (&stack, a);
