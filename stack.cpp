@@ -8,7 +8,7 @@ int main ()
 
     StructStack stack = {};
 
-    if (stack_constructor (&stack, Capacity) != 0)
+    if (STACKCTOR (&stack, Capacity) != 0)
     {
         stack_destructor (&stack);
         return 1;

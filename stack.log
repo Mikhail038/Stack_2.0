@@ -1,45 +1,883 @@
-=================================================================
-==12429==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x6180000019c0 at pc 0x55cad53fcf18 bp 0x7ffde1663cf0 sp 0x7ffde1663ce0
-WRITE of size 1 at 0x6180000019c0 thread T0
-    #0 0x55cad53fcf17 in copy_byte_by_byte(void*, void*, int) /home/mikhail/PROGA/Stack_2.0/f_stack.cpp:112
-    #1 0x55cad54025eb in stack_constructor(StructStack*, int) /home/mikhail/PROGA/Stack_2.0/f_stack.cpp:486
-    #2 0x55cad53fc73e in main /home/mikhail/PROGA/Stack_2.0/stack.cpp:11
-    #3 0x7fd41a0f4d8f in __libc_start_call_main ../sysdeps/nptl/libc_start_call_main.h:58
-    #4 0x7fd41a0f4e3f in __libc_start_main_impl ../csu/libc-start.c:392
-    #5 0x55cad53fc464 in _start (/home/mikhail/PROGA/Stack_2.0/stack+0x10464)
-
-Address 0x6180000019c0 is a wild pointer.
-SUMMARY: AddressSanitizer: heap-buffer-overflow /home/mikhail/PROGA/Stack_2.0/f_stack.cpp:112 in copy_byte_by_byte(void*, void*, int)
-Shadow bytes around the buggy address:
-  0x0c307fff82e0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
-  0x0c307fff82f0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
-  0x0c307fff8300: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
-  0x0c307fff8310: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
-  0x0c307fff8320: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
-=>0x0c307fff8330: fa fa fa fa fa fa fa fa[fa]fa fa fa fa fa fa fa
-  0x0c307fff8340: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
-  0x0c307fff8350: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
-  0x0c307fff8360: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
-  0x0c307fff8370: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
-  0x0c307fff8380: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
-Shadow byte legend (one shadow byte represents 8 application bytes):
-  Addressable:           00
-  Partially addressable: 01 02 03 04 05 06 07 
-  Heap left redzone:       fa
-  Freed heap region:       fd
-  Stack left redzone:      f1
-  Stack mid redzone:       f2
-  Stack right redzone:     f3
-  Stack after return:      f5
-  Stack use after scope:   f8
-  Global redzone:          f9
-  Global init order:       f6
-  Poisoned by user:        f7
-  Container overflow:      fc
-  Array cookie:            ac
-  Intra object redzone:    bb
-  ASan internal:           fe
-  Left alloca redzone:     ca
-  Right alloca redzone:    cb
-  Shadow gap:              cc
-==12429==ABORTING
+int stack_constructor(StructStack*, int, const char*)                                       |
+int create_canary(StructStack*, int)                                                        |
+int create_canary(StructStack*, int)                                                        ^ 
+int make_hash(StructStack*)                                                                 |
+n 2239257536
+int make_hash(StructStack*)                                                                 ^ 
+int stack_variator(StructStack*)                                                            |
+1 '2239257536' '2239257536'
+int stack_variator(StructStack*)                                                            ^ 
+int initialize_info(StructInfo*, const char*, const char*, int, const char*)                |
+int initialize_info(StructInfo*, const char*, const char*, int, const char*)                ^ 
+int make_hash(StructStack*)                                                                 |
+n 2239257536
+int make_hash(StructStack*)                                                                 ^ 
+int stack_constructor(StructStack*, int, const char*)                                       ^ 
+int initialize_info(StructInfo*, const char*, const char*, int, const char*)                |
+int initialize_info(StructInfo*, const char*, const char*, int, const char*)                ^ 
+int push_in_stack(StructStack*, StackDataType)                                              |
+int initialize_info(StructInfo*, const char*, const char*, int, const char*)                |
+int initialize_info(StructInfo*, const char*, const char*, int, const char*)                ^ 
+int stack_variator(StructStack*)                                                            |
+1 '2239257536' '2239257536'
+int stack_variator(StructStack*)                                                            ^ 
+bool stack_is_full(StructStack*)                                                            |
+bool stack_is_full(StructStack*)                                                            ^ 
+int make_hash(StructStack*)                                                                 |
+n 1181166870
+int make_hash(StructStack*)                                                                 ^ 
+int push_in_stack(StructStack*, StackDataType)                                              ^ 
+int pop_from_stack(StructStack*, StackDataType*)                                            |
+int initialize_info(StructInfo*, const char*, const char*, int, const char*)                |
+int initialize_info(StructInfo*, const char*, const char*, int, const char*)                ^ 
+int stack_variator(StructStack*)                                                            |
+1 '1181166870' '1181166870'
+int stack_variator(StructStack*)                                                            ^ 
+bool stack_is_empty(StructStack*)                                                           |
+bool stack_is_empty(StructStack*)                                                           ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int make_hash(StructStack*)                                                                 |
+n 2239257536
+int make_hash(StructStack*)                                                                 ^ 
+int make_stack_smaller_with_canaries(StructStack*)                                          |
+int stack_variator(StructStack*)                                                            |
+1 '2239257536' '2239257536'
+int stack_variator(StructStack*)                                                            ^ 
+int make_hash(StructStack*)                                                                 |
+n 430896948
+int make_hash(StructStack*)                                                                 ^ 
+int make_stack_smaller_with_canaries(StructStack*)                                          ^ 
+int pop_from_stack(StructStack*, StackDataType*)                                            ^ 
+int peek_from_stack(StructStack*, StackDataType*)                                           |
+int initialize_info(StructInfo*, const char*, const char*, int, const char*)                |
+int initialize_info(StructInfo*, const char*, const char*, int, const char*)                ^ 
+int stack_variator(StructStack*)                                                            |
+1 '430896948' '430896948'
+int stack_variator(StructStack*)                                                            ^ 
+bool stack_is_empty(StructStack*)                                                           |
+bool stack_is_empty(StructStack*)                                                           ^ 
+int make_hash(StructStack*)                                                                 |
+n 430896948
+int make_hash(StructStack*)                                                                 ^ 
+int peek_from_stack(StructStack*, StackDataType*)                                           ^ 
+int stack_destructor(StructStack*)                                                          |
+int initialize_info(StructInfo*, const char*, const char*, int, const char*)                |
+int initialize_info(StructInfo*, const char*, const char*, int, const char*)                ^ 
+int stack_variator(StructStack*)                                                            |
+1 '430896948' '430896948'
+int stack_variator(StructStack*)                                                            ^ 
+int stack_dump(StructStack*)                                                                |
+int print_head(StructStack*, FILE*)                                                         |
+=============================================================================================
+=============================================================================================
+ERROR LOG
+=============================================================================================
+=============================================================================================
+BIRTH INFO
+---------------------------------------------------------------------------------------------
+Sep 29 2022 21:07:30
+---------------------------------------------------------------------------------------------
+NAME stack
+FILE stack.cpp
+FUNCTION int main()
+LINE 16
+=============================================================================================
+front_canary '2.30174e+247'
+hash         '430896948'
+size         '0'
+capacity     '50'
+data         '0x614000000048'
+canary       '2.30174e+247'
+canary_size  '8'
+err          '0'
+birth        '0x603000000070'
+source       '0x603000000040'
+end_canary   '2.30174e+247'
+---------------------------------------------------------------------------------------------
+int print_stack_data_double(StructStack*)                                                   |
+data[  0] '2.30174e+247'
+data[  1] '9.61276e+281'
+data[  2] '0'
+data[  3] '0'
+data[  4] '0'
+data[  5] '0'
+data[  6] '0'
+data[  7] '0'
+data[  8] '0'
+data[  9] '0'
+data[ 10] '0'
+data[ 11] '0'
+data[ 12] '0'
+data[ 13] '0'
+data[ 14] '0'
+data[ 15] '0'
+data[ 16] '0'
+data[ 17] '0'
+data[ 18] '0'
+data[ 19] '0'
+data[ 20] '0'
+data[ 21] '0'
+data[ 22] '0'
+data[ 23] '0'
+data[ 24] '0'
+data[ 25] '0'
+data[ 26] '0'
+data[ 27] '0'
+data[ 28] '0'
+data[ 29] '0'
+data[ 30] '0'
+data[ 31] '0'
+data[ 32] '0'
+data[ 33] '0'
+data[ 34] '0'
+data[ 35] '0'
+data[ 36] '0'
+data[ 37] '0'
+data[ 38] '0'
+data[ 39] '0'
+data[ 40] '0'
+data[ 41] '0'
+data[ 42] '0'
+data[ 43] '0'
+data[ 44] '0'
+data[ 45] '0'
+data[ 46] '0'
+data[ 47] '0'
+data[ 48] '0'
+data[ 49] '0'
+data[ 50] '0'
+data[ 51] '2.30174e+247'
+=============================================================================================
+int print_stack_data_double(StructStack*)                                                   ^ 
+int print_head(StructStack*, FILE*)                                                         ^ 
+int stack_dump(StructStack*)                                                                ^ 
+int poison_array(void*, int, int)                                                           |
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison_array(void*, int, int)                                                           ^ 
+int poison_array(void*, int, int)                                                           |
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison_array(void*, int, int)                                                           ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison_array(void*, int, int)                                                           |
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison_array(void*, int, int)                                                           ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison_array(void*, int, int)                                                           |
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison_array(void*, int, int)                                                           ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison_array(void*, int, int)                                                           |
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison_array(void*, int, int)                                                           ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison_array(void*, int, int)                                                           |
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison_array(void*, int, int)                                                           ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison_array(void*, int, int)                                                           |
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison_array(void*, int, int)                                                           ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int poison(void*, int)                                                                      |
+int poison(void*, int)                                                                      ^ 
+int stack_destructor(StructStack*)                                                          ^ 

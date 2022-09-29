@@ -15,9 +15,14 @@
 // 256 - source func null
 //---------------------------------------------------------------------------------------
 
+
 #define LOCATION __FILE__,__PRETTY_FUNCTION__,__LINE__
 
 #define DOTXT(Message) #Message
+
+#define DOTXT_1(Message) #Message+1
+
+#define STACKCTOR(stack, Capacity) stack_constructor (stack, Capacity, DOTXT_1 (stack))                                  
 
 #define BGN                                                                \
         do                                                                 \
@@ -66,16 +71,17 @@
             }                                         \
         } while (0)
 
-#define INIT(Var)                                                             \
+#define INIT(stack)                                                             \
         do                                                                    \
         {                                                                     \
-            initialize_info (Var, LOCATION);                                  \
+            initialize_info (stack, LOCATION, DOTXT (stack));                                  \
         } while (0)
 
 typedef double  StackDataType;
 
 typedef struct
 {
+    char* name = NULL;
     char* file = NULL;
     char* func = NULL;
     int   line;
@@ -101,7 +107,7 @@ typedef struct
 
 typedef struct
 {
-    double          front_canary    = NULL;
+    double          front_canary    = 0;
     unsigned int    hash            = 0;
     int             size            = 0;
     int             capacity        = 0;
@@ -111,7 +117,7 @@ typedef struct
     int             err             = 0;
     StructInfo*     birth           = NULL;
     StructInfo*     source          = NULL;
-    double          end_canary      = NULL;
+    double          end_canary      = 0;
 } StructStack;
 
 // #endif
@@ -140,7 +146,7 @@ typedef struct
 
 //unsigned int djb33_hash(const char* s, int len);
 
-unsigned int HashFAQ6 (const char * str);
+unsigned int HashFAQ6 (const char* Str, int Size);
 
 bool stack_is_full (StructStack* stack);
 
@@ -154,7 +160,13 @@ void copy_byte_by_byte (void* FirstData, void* SecondData, int Size);
 
 static int create_canary (StructStack* stack, int Size);
 
-int canaries_in_stack_alive (StructStack* stack);
+int check_stack_front_canary (StructStack* stack);
+
+int check_stack_end_canary (StructStack* stack);
+
+int check_data_front_canary (StructStack* stack);
+
+int check_data_end_canary (StructStack* stack);
 
 static int make_stack_bigger (StructStack* stack);
 
@@ -164,7 +176,7 @@ static int stack_variator (StructStack* stack);
 
 int stack_dump (StructStack* stack);
 
-int initialize_info (StructInfo* info, const char* File, const char* Function, int Line);
+int initialize_info (StructInfo* info, const char* File, const char* Function, int Line, const char* Name);
 
 static int print_head (StructStack* stack, FILE* stream);
 
@@ -183,7 +195,7 @@ void move_canary (StructStack* stack, int OldCapasity);
     @return returns pointer to the stack structure
 
 */
-int stack_constructor (StructStack* stack, int Capacity);
+int stack_constructor (StructStack* stack, int Capacity, const char* Name);
 
 int push_in_stack (StructStack* stack, StackDataType x);
 
