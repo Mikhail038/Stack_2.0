@@ -6,30 +6,24 @@
 #include <time.h>
 #include <limits.h>
 
-//-DDEFINE_NAME
-
-//TODO name in info structure
-
-
-//TODO hash
-
 static const int coef = 2;
 
 enum EErrors 
 {
-    UnknownError     = 1,
-    Capacity         = 2,
-    StackNullPtr     = 4,
-    SizeMoreCapacity = 8,
+    UnknownError            = 1,
+    Capacity                = 2,
+    StackNullPtr            = 4,
+    SizeMoreCapacity        = 8,
     StackFrontCanaryIsDead  = 16,
-    StackEndCanaryIsDead = 32,
-    BirthFileNull  = 64,  
-    BirthFuncNull    = 128,
-    SourceFileNull   = 256,
-    SourceFuncNull   = 512,
-    DataFrontCanaryIsDead  = 1024,
-    DataEndCanaryIsDead = 2048,
-    WrongHash = 4096   
+    StackEndCanaryIsDead    = 32, //TODO vyronyai
+    BirthFileNull           = 64,  
+    BirthFuncNull           = 128,
+    SourceFileNull          = 256,
+    SourceFuncNull          = 512,
+    DataFrontCanaryIsDead   = 1024,
+    DataEndCanaryIsDead     = 2048,
+    WrongStackHash          = 4096,
+    WrongDataHash           = 8192   
 };
 
 typedef struct
@@ -40,19 +34,20 @@ typedef struct
 
 static const StructError ArrStructErr[32] =
 {
-    {UnknownError, "Unknown Error"},
-    {Capacity, "Capacity < 0"},
-    {StackNullPtr, "Stack pointer is NULL"},
-    {SizeMoreCapacity, "Stack size is more than capacity"},
+    {UnknownError,           "Unknown Error"},
+    {Capacity,               "Capacity < 0"},
+    {StackNullPtr,           "Stack pointer is NULL"},
+    {SizeMoreCapacity,       "Stack size is more than capacity"},
     {StackFrontCanaryIsDead, "Front canary is dead. Stack is corrupted"},
-    {StackEndCanaryIsDead, "End canary is dead. Stack is corrupted"},
-    {BirthFileNull, "No info about file where stack was declared"},
-    {BirthFuncNull, "No info about function where stack was declared"},
-    {SourceFileNull, "No info about file where check failed"},
-    {SourceFuncNull, "No info about function where check failed"},
-    {DataFrontCanaryIsDead, "Front canary is dead. Stack data is corrupted"},
-    {DataEndCanaryIsDead, "End canary is dead. Stack data is corrupted"},
-    {WrongHash, "Hash-check failed, data or stack is corrupted"}
+    {StackEndCanaryIsDead,   "End canary is dead. Stack is corrupted"},
+    {BirthFileNull,          "No info about file where stack was declared"},
+    {BirthFuncNull,          "No info about function where stack was declared"},
+    {SourceFileNull,         "No info about file where check failed"},
+    {SourceFuncNull,         "No info about function where check failed"},
+    {DataFrontCanaryIsDead,  "Front canary is dead. Stack data is corrupted"},
+    {DataEndCanaryIsDead,    "End canary is dead. Stack data is corrupted"},
+    {WrongStackHash,         "Hash-check failed, stack is corrupted"},
+    {WrongDataHash,          "Hash-check failed, data is corrupted"}
 };
 
 // unsigned int hash_h31 (const void* array, int size)
@@ -189,30 +184,57 @@ int check_data_end_canary (StructStack* stack)
     return 1;   
 }
 
-int check_hash (StructStack* stack)
+int check_data_hash (StructStack* stack)
 {
-    //stack->data -= (int) ((double) stack->canary_size / (double) (sizeof (*stack->data)));
+    BGN;
+    
+    stack->data -= (int) ((double) stack->canary_size / (double) (sizeof (*stack->data)));
+
+    //TODO privesty k ukazately na kanareiky
+
+    unsigned int old_hash = stack->hash_data;
+
+    char* h_data = (char*) stack->data;
+
+    unsigned int data_hash  = HashFAQ6 (h_data, stack->capacity * sizeof (*stack->data));
+
+    stack->data += (int) ((double) stack->canary_size / (double) (sizeof (*stack->data)));
+
+    stack->hash_data = data_hash;
+
+    if (old_hash == stack->hash_data)  
+    {  
+        if (PROTECTION_LEVEL > 3) fprintf (stderr, "1 '%u' '%u'\n", old_hash, stack->hash_data); // TODO add global FILE* logfile; 
+        
+        END;
+
+        return 1;
+    }
+
+    if (PROTECTION_LEVEL > 3) fprintf (stderr, "0 '%u' '%u'\n", old_hash, stack->hash_data);
+
+    END;
+
+    return 0;
+}
+
+int check_stack_hash (StructStack* stack)
+{
+    BGN;
+
+    stack->data -= (int) ((double) stack->canary_size / (double) (sizeof (*stack->data)));
+    
+    //TODO VitualQuery prava pamyati
 
     unsigned int old_hash =  stack->hash;
-    //printf ("o %u\n", old_hash);
 
     stack->hash = 0;
 
     char* h_stack = (char*) stack;
-    //char* h_data  = (char*) stack->data;
 
     unsigned int hash_stack = HashFAQ6 (h_stack, sizeof (*stack));
-    //printf ("s %u\n", hash_stack);
 
-    // unsigned int hash_data  = HashFAQ6 (h_data, stack->capacity * sizeof (*stack->data) + 2 * stack->canary_size);
-    // printf ("d %u\n", hash_data);
-
-    // char* new_hash = (char*) calloc (2, sizeof (old_hash));
-
-    // new_hash = strncat ((char*) &(hash_data), (char*) &(hash_stack), sizeof(old_hash));
-
-
-    //stack->data += (int) ((double) stack->canary_size / (double) (sizeof (*stack->data)));
+    stack->data += (int) ((double) stack->canary_size / (double) (sizeof (*stack->data)));
 
     stack->hash = hash_stack;
 
@@ -220,10 +242,14 @@ int check_hash (StructStack* stack)
     {  
         if (PROTECTION_LEVEL > 3) fprintf (stderr, "1 '%u' '%u'\n", old_hash, hash_stack);
         
+        END;
+
         return 1;
     }
 
     if (PROTECTION_LEVEL > 3) fprintf (stderr, "0 '%u' '%u'\n", old_hash, hash_stack);
+
+    END;
 
     return 0;
 }
@@ -232,25 +258,38 @@ int make_hash (StructStack* stack)
 {
     BGN;
 
+    if (PROTECTION_LEVEL < 3)
+    {
+        END;
+
+        return 0;
+    }
+
+    stack->data -= (int) ((double) stack->canary_size / (double) (sizeof (*stack->data)));
+
     stack->hash = 0;
 
-    if (PROTECTION_LEVEL < 3)
-        return 0;
+
 
     char* h_stack = (char*) stack;
-
+    char* h_data = (char*) stack->data;
+    
+    unsigned int hash_data  = HashFAQ6 (h_data, stack->capacity * sizeof (*stack->data));    
+    stack->hash_data = hash_data; 
+    
     unsigned int hash_stack = HashFAQ6 (h_stack, sizeof (*stack));
+    stack->hash = hash_stack; 
 
-    stack->hash = hash_stack;
+    stack->data += (int) ((double) stack->canary_size / (double) (sizeof (*stack->data)));
 
-    if (PROTECTION_LEVEL > 3) fprintf (stderr, "n %u\n", stack->hash);
+    if (PROTECTION_LEVEL > 3) fprintf (stderr, "n %u n %u\n", stack->hash, stack->hash_data);
     
     END;
 
     return 0;
 }
 
-static int create_canary (StructStack* stack, int Size)
+static void create_canary (StructStack* stack, int Size)
 {
     BGN;
 
@@ -266,7 +305,7 @@ static int create_canary (StructStack* stack, int Size)
 
     END;
 
-    return 0;
+    return;
 }
 
 static int stack_variator (StructStack* stack)
@@ -294,7 +333,8 @@ static int stack_variator (StructStack* stack)
 
             if (PROTECTION_LEVEL > 2)
             {
-                MSA (check_hash (stack), 4096);
+                MSA (check_stack_hash (stack), 4096);
+                MSA (check_data_hash (stack), 8192);                
             }
         }
     }   
@@ -306,7 +346,7 @@ static int stack_variator (StructStack* stack)
     return 0;
 }
 
-int stack_dump (StructStack* stack)
+void stack_dump (StructStack* stack)
 {
     BGN;
 
@@ -322,7 +362,7 @@ int stack_dump (StructStack* stack)
 
     END;
 
-    return 0;
+    return;
 }
 
 int initialize_info (StructInfo* info, const char* File, const char* Function, int Line, const char* Name)
@@ -342,7 +382,7 @@ int initialize_info (StructInfo* info, const char* File, const char* Function, i
     return 0;
 }
 
-static int print_head (StructStack* stack, FILE* stream)
+static void print_head (StructStack* stack, FILE* stream)
 {
     BGN;
 
@@ -362,7 +402,8 @@ static int print_head (StructStack* stack, FILE* stream)
     "LINE %d\n"
     "=============================================================================================\n"
     "front_canary '%lg'\n"
-    "hash         '%d'\n"
+    "hash         '%u'\n"
+    "hash_data    '%u'\n"
     "size         '%d'\n"
     "capacity     '%d'\n"
     "data         '%p'\n"
@@ -374,7 +415,7 @@ static int print_head (StructStack* stack, FILE* stream)
     "end_canary   '%lg'\n"
     "---------------------------------------------------------------------------------------------\n",
     __DATE__, __TIME__, stack->birth->name, stack->birth->file, stack->birth->func, stack->birth->line, 
-    stack->front_canary, stack->hash, stack->size, stack->capacity,
+    stack->front_canary, stack->hash, stack->hash_data, stack->size, stack->capacity,
     stack->data, stack->canary, stack->canary_size, stack->err, 
     stack->birth, stack->source, stack->end_canary);
 
@@ -383,19 +424,21 @@ static int print_head (StructStack* stack, FILE* stream)
 
     END;
 
-    return 0;
+    return;
 }
 
-static int print_error (const char* ErrorName, StructInfo* info, FILE* Stream)
+static void print_error (const char* ErrorName, StructInfo* info, FILE* Stream)
 {
-    fprintf (Stream, "FAILED CHECK//IN FILE//%s//IN FUNCTION//%s//IN LINE//%-4d//"
-    "ERROR:||%-50s||\n",
+    fprintf (Stream, "FAILED CHECK!  IN FILE %s  IN FUNCTION %s  IN LINE %-4d  ERROR:||%-50s||\n",
     info->file, info->func, info->line, ErrorName);
 
-    return 0;
+    return;
 }
+// TODO void print_el (int a) { printf("%d", a);}
+// void print_el (double a) { printf("%lg", a);}
+// void print_el (char a) { printf("%c", a);}
 
-static int print_stack_data_double (StructStack* stack)
+static void print_stack_data_double (StructStack* stack) // print_el (int) // print_el(char) // print_el(double) //  
 {
     BGN;
 
@@ -404,7 +447,17 @@ static int print_stack_data_double (StructStack* stack)
     for (int i = 0;  i < stack->capacity + ((PROTECTION_LEVEL > 1) ? 2 : 0); i++)
     {
         fprintf (stderr, "data[%3d] '%lg'\n", i, (stack->data)[i], (stack->data)[i]);
+        //fprintf (stderr, "data[!!!] '%x'\n", (stack->data)[i]);
+        //print_el((stack->data)[i]);
+
+        for (int j = 0; j < sizeof ((stack->data)[i]); j++)
+            fprintf (stderr, "[%x]", ((char*)&(stack->data)[i])[j] ); //TODO osoznai
+        fprintf (stderr, "\n");
+
     }
+
+
+    
 
     fprintf (stderr, 
     "=============================================================================================\n");
@@ -412,10 +465,10 @@ static int print_stack_data_double (StructStack* stack)
 
     END;
 
-    return 0;
+    return;
 }
 
-static int poison (void* Victim, int Size)
+static void poison (void* Victim, int Size)
 {
     BGN;
 
@@ -426,10 +479,10 @@ static int poison (void* Victim, int Size)
 
     END;
 
-    return 0;
+    return;
 }
 
-static int poison_array (void* VictimArray, int ArraySize, int Size)
+static void poison_array (void* VictimArray, int ArraySize, int Size)
 {
     BGN;
 
@@ -440,7 +493,7 @@ static int poison_array (void* VictimArray, int ArraySize, int Size)
 
     END;
 
-    return 0;
+    return;
 }
 
 static int make_stack_bigger (StructStack* stack)
@@ -777,14 +830,13 @@ int stack_destructor (StructStack* stack)
     INIT (stack->source);
     if ((stack_variator (stack) != 0) || (PROTECTION_LEVEL > 3))
     {
-        //stack->err = 1 + 2 + 8 + 16 + 32 + 64 + 128 + 256 + 512 + 1024 + 2048;
         stack_dump (stack);
         if (stack->err & 4)
         {
             return 1;
         }
     }
-    //stack->data = stack->data - stack->canary_size;
+    // stack->data = stack->data - stack->canary_size;
 
     // if (stack->canary != NULL)
     // {
@@ -850,7 +902,7 @@ int stack_destructor (StructStack* stack)
     // poison (&(stack->capacity), sizeof (stack->capacity));
     // poison (&(stack->size), sizeof (stack->size));
     // poison (&(stack->err), sizeof (stack->err));
-
+    
     poison (stack, sizeof (*stack));
 
     stack = NULL;

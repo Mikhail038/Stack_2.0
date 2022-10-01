@@ -109,6 +109,7 @@ typedef struct
 {
     double          front_canary    = 0;
     unsigned int    hash            = 0;
+    unsigned int    hash_data       = 0;
     int             size            = 0;
     int             capacity        = 0;
     StackDataType*  data            = NULL;
@@ -158,7 +159,7 @@ int compare_byte_by_byte (void* FirstData, void* SecondData, int Size);
 
 void copy_byte_by_byte (void* FirstData, void* SecondData, int Size);   
 
-static int create_canary (StructStack* stack, int Size);
+static void create_canary (StructStack* stack, int Size);
 
 int check_stack_front_canary (StructStack* stack);
 
@@ -168,21 +169,29 @@ int check_data_front_canary (StructStack* stack);
 
 int check_data_end_canary (StructStack* stack);
 
+int check_data_hash (StructStack* stack);
+
+int check_stack_hash (StructStack* stack);
+
+int make_hash (StructStack* stack);
+
 static int make_stack_bigger (StructStack* stack);
 
-static int poison (void* Victim, int Size);
+static void poison (void* Victim, int Size);
+
+static void poison_array (void* VictimArray, int ArraySize, int Size);
 
 static int stack_variator (StructStack* stack);
 
-int stack_dump (StructStack* stack);
+void stack_dump (StructStack* stack);
 
 int initialize_info (StructInfo* info, const char* File, const char* Function, int Line, const char* Name);
 
-static int print_head (StructStack* stack, FILE* stream);
+static void print_head (StructStack* stack, FILE* stream);
 
-static int print_error (const char* ErrorName, StructInfo* info, FILE* Stream);
+static void print_error (const char* ErrorName, StructInfo* info, FILE* Stream);
 
-static int print_stack_data_double (StructStack* stack);
+static void print_stack_data_double (StructStack* stack);
 
 void move_canary (StructStack* stack, int OldCapasity);
 
