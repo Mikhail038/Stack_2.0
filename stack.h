@@ -77,7 +77,9 @@
             initialize_info (stack, LOCATION, DOTXT (stack));                                  \
         } while (0)
 
-typedef double  StackDataType;
+typedef double StackDataType;
+
+typedef double CanaryType;
 
 typedef struct
 {
@@ -87,41 +89,22 @@ typedef struct
     int   line;
 } StructInfo;
 
-#ifdef GREEN
-
-// typedef struct
-// {
-//     int             size            = 0;
-//     int             capacity        = 0;
-//     StackDataType*  data            = NULL;
-//     int             err             = 0;
-//     char*           canary          = NULL;
-//     int             canary_size     = 0;
-//     StructInfo*     birth           = NULL;
-//     StructInfo*     source          = NULL;
-// } StructStack;
-
-#endif
-
-// #ifndef GREEN
-
 typedef struct
 {
-    double          front_canary    = 0;
+    CanaryType          front_canary    = 0;
     unsigned int    hash            = 0;
     unsigned int    hash_data       = 0;
     int             size            = 0;
     int             capacity        = 0;
     StackDataType*  data            = NULL;
-    double          canary          = 0;
-    int             canary_size     = 0;
+    CanaryType          canary          = 0;
+    // int             canary_size     = 0;
     int             err             = 0;
     StructInfo*     birth           = NULL;
     StructInfo*     source          = NULL;
-    double          end_canary      = 0;
+    CanaryType          end_canary      = 0;
 } StructStack;
 
-// #endif
 
 #ifdef GREEN
     static const int PROTECTION_LEVEL = 0;
