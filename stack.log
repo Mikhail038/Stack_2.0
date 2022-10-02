@@ -1,21 +1,21 @@
 int stack_constructor(StructStack*, int, const char*)                                       |
-void create_canary(StructStack*, int)                                                       |
-void create_canary(StructStack*, int)                                                       ^ 
+void create_canary(StructStack*)                                                            |
+void create_canary(StructStack*)                                                            ^ 
 int make_hash(StructStack*)                                                                 |
-n 1378034264 n 3027589246
+n 3966068502 n 39033232
 int make_hash(StructStack*)                                                                 ^ 
 int stack_variator(StructStack*)                                                            |
 int check_stack_hash(StructStack*)                                                          |
-1 '1378034264' '1378034264'
+1 '3966068502' '3966068502'
 int check_stack_hash(StructStack*)                                                          ^ 
 int check_data_hash(StructStack*)                                                           |
-1 '3027589246' '3027589246'
+1 '39033232' '39033232'
 int check_data_hash(StructStack*)                                                           ^ 
 int stack_variator(StructStack*)                                                            ^ 
 int initialize_info(StructInfo*, const char*, const char*, int, const char*)                |
 int initialize_info(StructInfo*, const char*, const char*, int, const char*)                ^ 
 int make_hash(StructStack*)                                                                 |
-n 1378034264 n 3027589246
+n 3966068502 n 39033232
 int make_hash(StructStack*)                                                                 ^ 
 int stack_constructor(StructStack*, int, const char*)                                       ^ 
 int initialize_info(StructInfo*, const char*, const char*, int, const char*)                |
@@ -25,16 +25,16 @@ int initialize_info(StructInfo*, const char*, const char*, int, const char*)    
 int initialize_info(StructInfo*, const char*, const char*, int, const char*)                ^ 
 int stack_variator(StructStack*)                                                            |
 int check_stack_hash(StructStack*)                                                          |
-1 '1378034264' '1378034264'
+1 '3966068502' '3966068502'
 int check_stack_hash(StructStack*)                                                          ^ 
 int check_data_hash(StructStack*)                                                           |
-1 '3027589246' '3027589246'
+1 '39033232' '39033232'
 int check_data_hash(StructStack*)                                                           ^ 
 int stack_variator(StructStack*)                                                            ^ 
 bool stack_is_full(StructStack*)                                                            |
 bool stack_is_full(StructStack*)                                                            ^ 
 int make_hash(StructStack*)                                                                 |
-n 2711495401 n 1934616164
+n 395255917 n 2355641823
 int make_hash(StructStack*)                                                                 ^ 
 int push_in_stack(StructStack*, StackDataType)                                              ^ 
 int pop_from_stack(StructStack*, StackDataType*)                                            |
@@ -42,10 +42,10 @@ int initialize_info(StructInfo*, const char*, const char*, int, const char*)    
 int initialize_info(StructInfo*, const char*, const char*, int, const char*)                ^ 
 int stack_variator(StructStack*)                                                            |
 int check_stack_hash(StructStack*)                                                          |
-1 '2711495401' '2711495401'
+1 '395255917' '395255917'
 int check_stack_hash(StructStack*)                                                          ^ 
 int check_data_hash(StructStack*)                                                           |
-1 '1934616164' '1934616164'
+1 '2355641823' '2355641823'
 int check_data_hash(StructStack*)                                                           ^ 
 int stack_variator(StructStack*)                                                            ^ 
 bool stack_is_empty(StructStack*)                                                           |
@@ -53,19 +53,19 @@ bool stack_is_empty(StructStack*)                                               
 void poison(void*, int)                                                                     |
 void poison(void*, int)                                                                     ^ 
 int make_hash(StructStack*)                                                                 |
-n 2661643603 n 2474414666
+n 2877406883 n 2813845070
 int make_hash(StructStack*)                                                                 ^ 
 int make_stack_smaller_with_canaries(StructStack*)                                          |
 int stack_variator(StructStack*)                                                            |
 int check_stack_hash(StructStack*)                                                          |
-1 '2661643603' '2661643603'
+1 '2877406883' '2877406883'
 int check_stack_hash(StructStack*)                                                          ^ 
 int check_data_hash(StructStack*)                                                           |
-1 '2474414666' '2474414666'
+1 '2813845070' '2813845070'
 int check_data_hash(StructStack*)                                                           ^ 
 int stack_variator(StructStack*)                                                            ^ 
 int make_hash(StructStack*)                                                                 |
-n 3844568626 n 626996249
+n 443751362 n 3542564027
 int make_hash(StructStack*)                                                                 ^ 
 int make_stack_smaller_with_canaries(StructStack*)                                          ^ 
 int pop_from_stack(StructStack*, StackDataType*)                                            ^ 
@@ -74,16 +74,16 @@ int initialize_info(StructInfo*, const char*, const char*, int, const char*)    
 int initialize_info(StructInfo*, const char*, const char*, int, const char*)                ^ 
 int stack_variator(StructStack*)                                                            |
 int check_stack_hash(StructStack*)                                                          |
-1 '3844568626' '3844568626'
+1 '443751362' '443751362'
 int check_stack_hash(StructStack*)                                                          ^ 
 int check_data_hash(StructStack*)                                                           |
-1 '626996249' '626996249'
+1 '3542564027' '3542564027'
 int check_data_hash(StructStack*)                                                           ^ 
 int stack_variator(StructStack*)                                                            ^ 
 bool stack_is_empty(StructStack*)                                                           |
 bool stack_is_empty(StructStack*)                                                           ^ 
 int make_hash(StructStack*)                                                                 |
-n 3844568626 n 626996249
+n 443751362 n 3542564027
 int make_hash(StructStack*)                                                                 ^ 
 int peek_from_stack(StructStack*, StackDataType*)                                           ^ 
 int stack_destructor(StructStack*)                                                          |
@@ -91,10 +91,10 @@ int initialize_info(StructInfo*, const char*, const char*, int, const char*)    
 int initialize_info(StructInfo*, const char*, const char*, int, const char*)                ^ 
 int stack_variator(StructStack*)                                                            |
 int check_stack_hash(StructStack*)                                                          |
-1 '3844568626' '3844568626'
+1 '443751362' '443751362'
 int check_stack_hash(StructStack*)                                                          ^ 
 int check_data_hash(StructStack*)                                                           |
-1 '626996249' '626996249'
+1 '3542564027' '3542564027'
 int check_data_hash(StructStack*)                                                           ^ 
 int stack_variator(StructStack*)                                                            ^ 
 void stack_dump(StructStack*)                                                               |
@@ -106,29 +106,29 @@ ERROR LOG
 =============================================================================================
 BIRTH INFO
 ---------------------------------------------------------------------------------------------
-Oct  1 2022 02:16:15
+Oct  2 2022 17:47:51
 ---------------------------------------------------------------------------------------------
 NAME stack
 FILE stack.cpp
 FUNCTION int main()
 LINE 16
 =============================================================================================
-front_canary '-4.28032e-274'
-hash         '3844568626'
-hash_data    '626996249'
+front_canary '2.46501e+129'
+hash         '443751362'
+hash_data    '3542564027'
 size         '0'
 capacity     '50'
 data         '0x614000000048'
-canary       '-4.28032e-274'
+canary       '2.46501e+129'
 canary_size  '8'
 err          '0'
 birth        '0x603000000070'
 source       '0x603000000040'
-end_canary   '-4.28032e-274'
+end_canary   '2.46501e+129'
 ---------------------------------------------------------------------------------------------
 void print_stack_data_double(StructStack*)                                                  |
-data[  0] '-4.28032e-274'
-[2d][48][5][8][ffffff8f][ffffffa3][2d][ffffff87]
+data[  0] '2.46501e+129'
+[48][ffffff88][ffffff90][fffffffc][2][73][ffffffcc][5a]
 data[  1] '9.61276e+281'
 [7a][7a][7a][7a][7a][7a][7a][7a]
 data[  2] '0'
@@ -229,8 +229,8 @@ data[ 49] '0'
 [0][0][0][0][0][0][0][0]
 data[ 50] '0'
 [0][0][0][0][0][0][0][0]
-data[ 51] '-4.28032e-274'
-[2d][48][5][8][ffffff8f][ffffffa3][2d][ffffff87]
+data[ 51] '2.46501e+129'
+[48][ffffff88][ffffff90][fffffffc][2][73][ffffffcc][5a]
 =============================================================================================
 void print_stack_data_double(StructStack*)                                                  ^ 
 void print_head(StructStack*, FILE*)                                                        ^ 

@@ -155,31 +155,31 @@ int check_stack_end_canary (StructStack* stack)
 
 int check_data_front_canary (StructStack* stack)
 {
-    stack->data -= (int) ((double) stack->canary_size / (double) (sizeof (*stack->data)));
+    stack->data = (double*) stack->data -  1/**/;
     
     if (compare_byte_by_byte (stack->data, &stack->canary, stack->canary_size) == 0)
     {
-        stack->data += (int) ((double) stack->canary_size / (double) (sizeof (*stack->data)));
+        stack->data = (double*) stack->data +  1/**/;
         
         return 0;
     }
     
-    stack->data += (int) ((double) stack->canary_size / (double) (sizeof (*stack->data)));
+    stack->data = (double*) stack->data +  1/**/;
 
     return 1;   
 }
 
 int check_data_end_canary (StructStack* stack)
 {
-    stack->data -= (int) ((double) stack->canary_size / (double) (sizeof (*stack->data)));
+    stack->data = (double*) stack->data -  1/**/;
     
     if (compare_byte_by_byte (stack->data + stack->capacity + 1, &stack->canary, stack->canary_size) == 0)
     {
-        stack->data += (int) ((double) stack->canary_size / (double) (sizeof (*stack->data)));
+        stack->data = (double*) stack->data +  1/**/;
         
         return 0;
     }
-    stack->data += (int) ((double) stack->canary_size / (double) (sizeof (*stack->data)));
+    stack->data = (double*) stack->data +  1/**/;
 
     return 1;   
 }
@@ -188,7 +188,7 @@ int check_data_hash (StructStack* stack)
 {
     BGN;
     
-    stack->data -= (int) ((double) stack->canary_size / (double) (sizeof (*stack->data)));
+    stack->data = (double*) stack->data -  1/**/;
 
     //TODO privesty k ukazately na kanareiky
 
@@ -198,7 +198,7 @@ int check_data_hash (StructStack* stack)
 
     unsigned int data_hash  = HashFAQ6 (h_data, stack->capacity * sizeof (*stack->data));
 
-    stack->data += (int) ((double) stack->canary_size / (double) (sizeof (*stack->data)));
+    stack->data = (double*) stack->data +  1/**/;
 
     stack->hash_data = data_hash;
 
@@ -222,7 +222,7 @@ int check_stack_hash (StructStack* stack)
 {
     BGN;
 
-    stack->data -= (int) ((double) stack->canary_size / (double) (sizeof (*stack->data)));
+    stack->data = (double*) stack->data -  1/**/;
     
     //TODO VitualQuery prava pamyati
 
@@ -234,7 +234,7 @@ int check_stack_hash (StructStack* stack)
 
     unsigned int hash_stack = HashFAQ6 (h_stack, sizeof (*stack));
 
-    stack->data += (int) ((double) stack->canary_size / (double) (sizeof (*stack->data)));
+    stack->data = (double*) stack->data +  1/**/;
 
     stack->hash = hash_stack;
 
@@ -265,10 +265,10 @@ int make_hash (StructStack* stack)
         return 0;
     }
 
-    stack->data -= (int) ((double) stack->canary_size / (double) (sizeof (*stack->data)));
-
+    stack->data = (double*) stack->data -  1/**/;
+    //(int) ((double) stack->canary_size / (double) (sizeof (*stack->data)))
     stack->hash = 0;
-
+   //(double*) stack->data -= 
 
 
     char* h_stack = (char*) stack;
@@ -280,7 +280,7 @@ int make_hash (StructStack* stack)
     unsigned int hash_stack = HashFAQ6 (h_stack, sizeof (*stack));
     stack->hash = hash_stack; 
 
-    stack->data += (int) ((double) stack->canary_size / (double) (sizeof (*stack->data)));
+    stack->data = (double*) stack->data +  1/**/;
 
     if (PROTECTION_LEVEL > 3) fprintf (stderr, "n %u n %u\n", stack->hash, stack->hash_data);
     
@@ -289,14 +289,14 @@ int make_hash (StructStack* stack)
     return 0;
 }
 
-static void create_canary (StructStack* stack, int Size)
+static void create_canary (StructStack* stack)
 {
     BGN;
 
     srand (time (NULL));
 
     //stack->canary = (char*) calloc (Size, sizeof(*stack->canary));
-    stack->canary_size = Size;
+    stack->canary_size = sizeof (double);
 
     for (int i = 0; i < stack->canary_size; i++)
     {
@@ -442,7 +442,7 @@ static void print_stack_data_double (StructStack* stack) // print_el (int) // pr
 {
     BGN;
 
-    stack->data -= (PROTECTION_LEVEL > 1) ? (int) ((double) stack->canary_size / (double) (sizeof (*stack->data))) : 0;
+    if (PROTECTION_LEVEL > 1) stack->data = (double*) stack->data - 1;
 
     for (int i = 0;  i < stack->capacity + ((PROTECTION_LEVEL > 1) ? 2 : 0); i++)
     {
@@ -461,7 +461,9 @@ static void print_stack_data_double (StructStack* stack) // print_el (int) // pr
 
     fprintf (stderr, 
     "=============================================================================================\n");
-    stack->data += (PROTECTION_LEVEL > 1) ? (int) ((double) stack->canary_size / (double) (sizeof (*stack->data))) : 0;
+
+    if (PROTECTION_LEVEL > 1) stack->data = (double*) stack->data +  1;
+
 
     END;
 
@@ -528,7 +530,7 @@ static int make_stack_bigger_with_canaries (StructStack* stack)
 
     int OldCapasity = stack->capacity;
 
-    stack->data -= (int) ((double) stack->canary_size / (double) (sizeof (*stack->data)));
+    stack->data = (double*) stack->data -  1/**/;
 
     stack->data = (StackDataType*) realloc (stack->data, (stack->capacity > 0) ? 
                                             stack->capacity * coef * sizeof (*stack->data) + 2 * stack->canary_size :
@@ -538,7 +540,7 @@ static int make_stack_bigger_with_canaries (StructStack* stack)
 
     stack->capacity = (stack->capacity > 0) ? stack->capacity * coef : (stack->capacity + 1) * coef;
 
-    stack->data += (int) ((double) stack->canary_size / (double) (sizeof (*stack->data)));
+    stack->data = (double*) stack->data +  1/**/;
 
     if (stack == NULL)
     {
@@ -598,13 +600,13 @@ static int make_stack_smaller_with_canaries (StructStack* stack)
         return 1;
     }
 
-    stack->data -= (int) ((double) stack->canary_size / (double) (sizeof (*stack->data)));
+    stack->data = (double*) stack->data -  1/**/;
 
     stack->data = (StackDataType*) realloc (stack->data, 2 * stack->canary_size +  sizeof (*stack->data) * ( stack->capacity / coef) );
 
     stack->capacity /= coef;
 
-    stack->data += (int) ((double) stack->canary_size / (double) (sizeof (*stack->data)));
+    stack->data = (double*) stack->data +  1/**/;
 
     copy_byte_by_byte (&stack->canary, stack->data + stack->capacity, stack->canary_size);
 
@@ -635,9 +637,9 @@ void move_canary (StructStack* stack, int OldCapasity)
     }
     
     copy_byte_by_byte (&stack->canary, stack->data                  , stack->canary_size);
-    stack->data += (int) ((double) stack->canary_size / (double) (sizeof (*stack->data)));
+    stack->data = (double*) stack->data +  1/**/;
     copy_byte_by_byte (&stack->canary, stack->data + stack->capacity, stack->canary_size);
-    stack->data -= (int) ((double) stack->canary_size / (double) (sizeof (*stack->data)));
+    stack->data = (double*) stack->data -  1/**/;
 
     make_hash (stack);
 
@@ -658,7 +660,7 @@ int stack_constructor (StructStack* stack, int Capacity, const char* Name)
 
     if (PROTECTION_LEVEL > 0) 
     {
-       create_canary (stack, sizeof (stack->canary));
+       create_canary (stack);
     }
     
     stack->data = (StackDataType*) calloc (1, stack->capacity * sizeof (*stack->data) + 2 * stack->canary_size);
@@ -674,7 +676,7 @@ int stack_constructor (StructStack* stack, int Capacity, const char* Name)
     if (PROTECTION_LEVEL > 1) 
     {
         copy_byte_by_byte (&stack->canary, stack->data,                   stack->canary_size);
-        stack->data += (int) ((double) stack->canary_size / (double) (sizeof (*stack->data)));
+        stack->data = (double*) stack->data +  1/**/;
         //print_stack_data_double (stack);
         copy_byte_by_byte (&stack->canary, stack->data + stack->capacity, stack->canary_size);
         //print_stack_data_double (stack);
@@ -846,7 +848,8 @@ int stack_destructor (StructStack* stack)
 
     //TODO delete &
 
-    stack->data -= (PROTECTION_LEVEL > 1) ? (int) ((double) stack->canary_size / (double) (sizeof (*stack->data))) : 0;
+    //(double*) stack->data -= (PROTECTION_LEVEL > 1) ? 1/**/ : 0;
+    if (PROTECTION_LEVEL > 1) stack->data = (double*) stack->data -  1;
 
     if (stack->data != NULL)
     {

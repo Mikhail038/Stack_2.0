@@ -159,7 +159,7 @@ int compare_byte_by_byte (void* FirstData, void* SecondData, int Size);
 
 void copy_byte_by_byte (void* FirstData, void* SecondData, int Size);   
 
-static void create_canary (StructStack* stack, int Size);
+static void create_canary (StructStack* stack);
 
 int check_stack_front_canary (StructStack* stack);
 
